@@ -1,15 +1,28 @@
+import java.util.List;
+
 public class CustomerCurrentAccount extends CustomerAccount {
 
+    private ATMCard atm;
     private double overdraft;
 
     public CustomerCurrentAccount() {
         super();
-        overdraft = 0.0;
+        this.atm = null;
+        this.overdraft = 0.0;
     }
 
-    public CustomerCurrentAccount(String number, double balance, double overdraft) {
+    public CustomerCurrentAccount(ATMCard atm, String number, double balance) {
         super(number, balance);
-        this.overdraft = overdraft;
+        this.atm = atm;
+        this.overdraft = 0.0;
+    }
+
+    public ATMCard getAtm() {
+        return atm;
+    }
+
+    public void setAtm(ATMCard atm) {
+        this.atm = atm;
     }
 
     public double getOverdraft() {
@@ -23,7 +36,7 @@ public class CustomerCurrentAccount extends CustomerAccount {
     @Override
     public boolean withdraw(double amount) {
 
-        if (getBalance() + overdraft >= amount) {
+        if(getBalance() + overdraft >= amount) {
             setBalance(getBalance() - amount);
             return true;
         }
